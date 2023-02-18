@@ -1,0 +1,97 @@
+{% extends 'sec2.html' %}
+{% block style %}
+<style>
+    aside > div:nth-child(1){
+            background-color: var(--main);
+        }
+</style>
+{% endblock %}
+{% block content %}
+<section id="news" class="">
+    <table>
+        <tr>
+            <th>اسم المتجر</th>
+            <th>شعار المتجر</th>
+            <th>تعديل</th>
+        </tr> 
+        <tr>
+            <td>{{items.name}}</td>
+            <td><img src="/static/images/{{items.buy}}" height="50px"></td>
+            <td><i class="fa fa-edit"></i></td>
+        </tr>
+    </table>
+</section>
+<section class="editConsult hidden">
+    <div style="cursor:pointer;text-align:center;background-color:var(--sec);padding:20px;color:black;font-size:2rem;border: 1px solid black;">رجوع</div>
+    <fieldset>
+        <label>اسم المتجر</label>
+        <div id="name">
+            <input type="text">
+        </div>
+    </fieldset>
+    <fieldset>
+        <label>شعار المتجر</label>
+        <div id="name">
+            <input type="file">
+        </div>
+    </fieldset>
+    <div style="cursor:pointer;text-align:center;background-color:var(--sec);padding:20px;color:black;font-size:2rem;border: 1px solid black;" id="refresh3">تعديل</div>
+</section>
+
+<article id="del" class="hidden">هل أنت متأكد أن تريد حذف هذا العنصر <br><div class="delete" id="yes">نعم</div><div id="space"></div><div class="delete" id="no">لا</div></article>
+<script>
+
+
+    let editData = document.querySelectorAll('input')
+    var ind2
+    /*************************************************/
+    [...document.querySelectorAll('tr')].filter((_,i)=>i!=0).forEach((elm)=>{
+        elm.querySelectorAll('td')[2].querySelector('i').addEventListener('click',(e)=>{
+            ind2 = [...document.querySelectorAll('tr')].indexOf(e.target.parentElement.parentElement) -1;
+            let data3 = e.target.parentElement.parentElement.querySelectorAll('td')
+                let ins =[...document.querySelector('.editConsult').querySelectorAll('input')]
+                ins[0].value = data3[0].innerHTML
+                ins[1].src = data3[1].innerHTML
+                document.querySelector('.editConsult').classList.remove('hidden')
+                document.querySelector('section').classList.add('hidden')
+        },{once:true})
+    })
+
+    document.querySelector('#refresh3').addEventListener('click',async()=>{
+    if(true){
+        await fetch(`/controlPanel/titles/add/?name=${editData[0].value}&buy=${editData[1].value.split('\\')[2]}`)
+        .then(()=>{
+            document.querySelector('#loading-wrapper').classList.remove('hidden')
+            document.querySelector('section').classList.add('hidden')
+        })
+    }
+    location.reload()
+})
+    /*
+    document.querySelector('#refresh').addEventListener('click',async()=>{
+        let inptus = document.querySelector('.editNews').querySelectorAll('input')
+        await fetch(`/controlPanel/products/edit/?ind=${[...document.querySelectorAll('tr')].filter((_,i)=>i!=0)[ind2].getAttribute('num-id')}&name=${inptus[0].value}&img=${inptus[1].value.split('\\')[2]}&price=${inptus[2].value}&desc=${document.querySelector('.editNews').querySelector('textarea').value}&date=${inptus[3].value}`)
+        location.reload()
+    })*/
+    function newInput(x){
+        x.appendChild(document.createElement('input'))
+    }
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+            
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        
+        return new File([u8arr], filename, {type:mime});
+    }
+
+    document.querySelector('.editConsult').querySelector('div').addEventListener('click',function(){
+        location.reload()
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,206 @@
+{% extends 'sec2.html' %}
+{% block style %}
+<style>
+    aside > div:nth-child(1){
+            background-color: var(--main);
+        }
+</style>
+{% endblock %}
+{% block content %}
+<section id="news" class="">
+    <div style="cursor:pointer;text-align:center;background-color:var(--sec);padding:20px;color:black;font-size:2rem;border-bottom: 1px solid black;">إضافة منتج جديد</div>
+    <table>
+        <tr>
+            <th>منتج مميز</th>
+            <th>إسم المنتج</th>
+            <th>صورة المنتج</th>
+            <th>سعر المنتج</th>
+            <th>التاريخ</th>
+            <th>حذف</th>
+            <th>تعديل</th>
+        </tr>
+        {% for x in items|reverse %}
+        {% if x.fav == 'true' %}
+        <tr class="fav" num-id="{{x.id}}">
+            <td><b>
+                <label class="switch">  
+                <input type="checkbox" class="switch-input" checked>
+                <span class="switch-label" data-on="On" data-off="Off"></span>
+                <span class="switch-handle"></span>
+              </label>
+            </b></td>
+            <td>{{x.name}}</td>
+            <td><img height='100px' src={{x.img}}></td>
+            <td>{{x.price}}</td>
+            <td>{{x.date}}</td>
+            <td><i class="fa fa-trash"></i></td>
+            <td><i class="fa fa-edit"></i></td>
+        </tr>
+        {% else %}
+        <tr num-id="{{x.id}}">
+            <td><b>
+                <label class="switch">
+                <input type="checkbox" class="switch-input">  
+                <span class="switch-label" data-on="On" data-off="Off"></span>
+                <span class="switch-handle"></span>
+              </label>
+            </b></td>
+            <td>{{x.name}}</td>
+            <td><img height='100px' src={{x.img}}></td>
+            <td>{{x.price}}</td>
+            <td>{{x.date}}</td>
+            <td><i class="fa fa-trash"></i></td>
+            <td><i class="fa fa-edit"></i></td>
+        </tr>
+        {% endif %}
+        {% endfor %}    
+    </table>
+</section>
+<section class="addConsult hidden">
+    <div style="cursor:pointer;text-align:center;background-color:var(--sec);padding:20px;color:black;font-size:2rem;border: 1px solid black;">رجوع</div>
+    <fieldset>
+        <label>اسم المنتج</label>
+        <div id="name">
+            <input type="text">
+        </div>
+    </fieldset>
+    <fieldset>
+        <label>صورة المنتج</label>
+        <div id="date">
+            <input type="file">
+        </div>
+    </fieldset>
+    <fieldset>
+        <label>سعر المنتج</label>
+        <div id="date">
+            <input type="text">
+        </div>
+    </fieldset>
+    <fieldset>
+        <label>التاريخ</label>
+        <div id="text">
+            <input type="date">
+        </div>
+    </fieldset>
+    <div style="cursor:pointer;text-align:center;background-color:var(--sec);padding:20px;color:black;font-size:2rem;border: 1px solid black;" id="refresh2">إضافة</div>
+</section>
+
+<section class="editConsult hidden">
+    <div style="cursor:pointer;text-align:center;background-color:var(--sec);padding:20px;color:black;font-size:2rem;border: 1px solid black;">رجوع</div>
+    <fieldset>
+        <label>اسم المنتج</label>
+        <div id="name">
+            <input type="text">
+        </div>
+    </fieldset>
+    <fieldset>
+        <label>صورة المنتج</label>
+        <div id="date">
+            <input type="file">
+        </div>
+    </fieldset>
+    <fieldset>
+        <label>سعر المنتج</label>
+        <div id="date">
+            <input type="text">
+        </div>
+    </fieldset>
+    <fieldset>
+        <label>التاريخ</label>
+        <div id="text">
+            <input type="date">
+        </div>
+    </fieldset>
+    <div style="cursor:pointer;text-align:center;background-color:var(--sec);padding:20px;color:black;font-size:2rem;border: 1px solid black;" id="refresh3">تعديل</div>
+</section>
+
+<article id="del" class="hidden">هل أنت متأكد أن تريد حذف هذا العنصر <br><div class="delete" id="yes">نعم</div><div id="space"></div><div class="delete" id="no">لا</div></article>
+<script>
+    var ind2
+    [...document.querySelectorAll('tr')].filter((_,i)=>i!=0).forEach((elm)=>{
+        elm.querySelectorAll('td')[5].querySelector('i').addEventListener('click',async(e)=>{
+                let ind = [...document.querySelector('#news').querySelectorAll('tr')].indexOf(e.target.parentElement.parentElement) -1
+                console.log(ind,[...document.querySelectorAll('tr')].filter((_,i)=>i!=0)[ind].getAttribute('num-id'))
+                document.querySelector('#del').classList.remove('hidden')
+                yes.addEventListener('click',async(e)=>{
+                    document.querySelector('#del').classList.add('hidden')
+                    await fetch(`/controlPanel/products/del/?ind=${[...document.querySelectorAll('tr')].filter((_,i)=>i!=0)[ind].getAttribute('num-id')}`)
+                    location.reload()
+                })
+                no.addEventListener('click',()=>{
+                    document.querySelector('#del').classList.add('hidden')
+                })
+            })
+            elm.querySelectorAll('td')[6].querySelector('i').addEventListener('click',async(e)=>{
+                /*document.querySelector('#news').querySelectorAll('.fa-edit').forEach((h)=>{
+                    h.classList.add('pointers')
+                })*/
+                ind2 = [...document.querySelector('#news').querySelectorAll('tr')].indexOf(e.target.parentElement.parentElement) -1;
+                console.log(ind2)
+                /*const clone = document.createElement('tr')
+                clone.insertAdjacentHTML('beforeend',`
+                <tr class="add">
+                    <td colspan="1"><input type="text" style="width:100%;" placeholder="اسم المنتج"></td>
+                    <td colspan="1"><input type="file" style="width:100%;" placeholder="صورة المنتج"></td>
+                    <td colspan="1"><input type="text" style="width:100%;" placeholder="رابط المنتج"></td>
+                    <td colspan="1"><textarea width="100%"></textarea></td>
+                    <td colspan="3"><input type="date" style="width:100%;" placeholder="نص المنتج"></td>
+                </tr>  
+                `);
+                clone.classList.add('editNews')
+                clone.classList.remove('add')
+                let element = document.querySelector('#news').querySelectorAll('tr')[ind2+1]
+                if(element !=undefined){
+                    element.parentNode.insertBefore(clone, element.nextSibling);
+                }
+                else{
+                    element = document.querySelector('#news').querySelectorAll('.add')
+                    element.parentNode.insertBefore(clone, element);
+                }*/
+                let data = e.target.parentElement.parentElement.querySelectorAll('td')
+                console.log(data)
+                let ins =[...document.querySelector('.editConsult').querySelectorAll('input')]
+                ins[0].value = data[1].innerHTML
+                //ins[1].value = data[1].innerHTML
+                ins[2].value = data[3].innerHTML
+                /*document.querySelector('.editConsult').querySelector('textarea').value = data[4].innerHTML
+                for(let i=0;i<data[5].innerHTML.split(',').length - 1;i++){
+                    newInput(document.querySelector('.editConsult').querySelector('.plus').parentElement.querySelector('div'))
+                }
+                document.querySelector('.editConsult').querySelector('.plus').parentElement.querySelectorAll('input').forEach((e,i)=>{
+                    e.value = data[5].innerHTML.split(',')[i]
+                })
+                document.querySelector('.editConsult').querySelectorAll('fieldset')[4]
+                ins.at(-2).value = data[6].innerHTML
+                //ins.at(-1).value = data[7].innerHTML*/
+                document.querySelector('.editConsult').classList.remove('hidden')
+                document.querySelector('section').classList.add('hidden')
+                /*edit()
+                addEdit()*/
+            })
+    })
+    /*
+    document.querySelector('#refresh').addEventListener('click',async()=>{
+        let inptus = document.querySelector('.editNews').querySelectorAll('input')
+        await fetch(`/controlPanel/products/edit/?ind=${[...document.querySelectorAll('tr')].filter((_,i)=>i!=0)[ind2].getAttribute('num-id')}&name=${inptus[0].value}&img=${inptus[1].value.split('\\')[2]}&price=${inptus[2].value}&desc=${document.querySelector('.editNews').querySelector('textarea').value}&date=${inptus[3].value}`)
+        location.reload()
+    })*/
+    function newInput(x){
+        x.appendChild(document.createElement('input'))
+    }
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+            
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        
+        return new File([u8arr], filename, {type:mime});
+    }
+</script>
+<script src="/static/js/products_panel.js"></script>
+{% endblock %}

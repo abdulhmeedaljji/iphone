@@ -1,0 +1,105 @@
+{% extends 'sec.html' %}
+{% block meta %}
+<meta property="og:title" content="اسم المتجر">
+<meta name="twitter:title" content="اسم المتجر">
+{% endblock %}
+{% block title %}
+    <title>{{items3.name}}</title>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/index.css">
+<style>
+    #productShow{
+        display: flex;
+        flex-direction: column;
+        max-height: calc(100vh - 200px);
+        overflow: hidden scroll;
+    }
+    #productShow > div{
+        position: relative;
+    }
+    #productShow img{
+        width: 33%;
+    }
+    #productShow article{
+        float: left;
+        bottom: 20px;
+        left:20px;
+        padding:5px 20px;
+        color:var(--main);
+        border-radius: 200px;
+        font-size:20px;
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.11);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        border: 4px solid rgba(255, 255, 255, 1);
+        cursor: pointer;
+        transition: 0.2s;
+        margin-top: 20px;
+    }
+    #productShow article:hover{
+        background-color: var(--main);
+        color:white;
+    }
+</style>
+{% endblock %}
+{% block header %}
+{% endblock %}
+{% block content%}
+<section>
+    <article id="productShow">
+        <h1>المنتجات</h1>
+        <hr>
+        {% for x in items|reverse%}
+        
+        <div>
+            <div>
+                <img src="{{x.img}}" width="100%">
+            </div>
+            <div>
+                <h2>{{x.name}}</h2>
+                <hr  style="width:unset">
+                <p>
+                    {{x.quote}}
+                </p>
+            </div>
+            <article><a href="/?product={{x.id}}" style="color:inherit">{{items3.browse}}</a></article>
+        </div>
+        <hr>
+        {% endfor %}
+    </article>
+    <article id="latestProducts">
+        <h1>منتجات مختارة</h1>
+        <hr>
+        {% for x in items|sort(attribute='date')|reverse %}
+        {% if x.fav == 'true' %}
+        <div>
+            <img src="{{x.img}}">
+            <div>
+                <h2><a href="/?product={{x.id}}">{{x.name}}</a></h2>
+                <!--span class="price">{{x.price}}</span-->
+            </div>
+            <span>
+                <a href="/?product={{x.id}}"><img src="/static/images/circle-with-an-arrow-pointing-to-left.png"></a>
+            </span>
+            <article>{{x.date}}</article>
+        </div>
+        <hr>
+        {% endif %}
+        {% endfor %}
+    </article>
+</section>
+{% endblock %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha256-2Pjr1OlpZMY6qesJM68t2v39t+lMLvxwpa8QlRjJroA=" crossorigin="anonymous"></script>
+<script src="/static/js/index.js"></script>
+<script>
+    document.querySelector('#productShow').addEventListener('scroll',function(){
+        scroll(0,80)
+    })
+</script>
+{%endblock%}
+

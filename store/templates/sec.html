@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" prefix="og: https://ogp.me/ns#">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5H5LGBWWKD"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-5H5LGBWWKD');
+    </script>
+    <meta name="google-site-verification" content="t4PnoqnyTqaw6kd0pdC0JoJblQWDh23o9HKMY9e_XC4"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="~/lib/Font-Awesome/css/fontawesome.min.css">
+    <link href="~/lib/Font-Awesome/css/regular.min.css">
+    <link href="~/lib/Font-Awesome/css/solid.min.css">
+    <link href="path/to/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <link 
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="apple-touch-icon" href="static/images/logo-main.png">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+    <meta name="author" content="Mahmoud Bahaa">
+    <link rel="icon" href="static/images/icon.png" type="image/x-icon">
+    <meta property="og:image" itemprop="image" content="/static/images/og-image.png">
+    {% block meta %}
+    {% endblock %}
+    {% block title %}
+    {% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/nav.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="/static/font/stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block css %}
+    {% endblock %}
+</head>
+<body class="">
+    <div class="overlay">
+        <div class="overlayDoor"></div>
+        <div class="overlayContent">
+            <div class="loader">
+                <div class="inner"></div>
+            </div>
+        </div>
+    </div>
+    <nav>
+        <div class="name21">{{items3.name}}</div>
+        <div>
+            <a href="{{url_for('home_page')}}">الرئيسية</a>
+        </div>
+        <!--i class="fa fa-bars"></i>
+        <aside>
+            <a href="{{url_for('home_page')}}">الرئيسية</a>
+        </aside-->
+        <div id="search"><b >بحث</b><input placeholder="أبحث عن ما تشاء"><img id="nightMode" src="/static/images/night-mode.png"></div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <!--footer>
+        <div>
+            <img src="/static/images/logo-sec-removebg-preview.png" alt="logo">
+        </div>
+        <div>
+            <h1>روابط مهمة</h1>
+            <a href="{{url_for('home_page')}}">الرئيسية</a>
+        </div>
+        <div>
+            <h1>إشترك في نشرتنا البريدية</h1>
+            <div>
+                <input type="text">
+                <i class="fa fa-angle-left"></i>
+            </div>
+            <div>
+              <div>
+                <i class="fa fa-envelope"></i><a href="mailto:info@tafasil.co">info@tafasil.co</a>
+              </div>
+              <div>
+                <i class="fa fa-phone"></i><a href="tel:123-456-7890">00902123739600</a>
+              </div>
+              <div> 
+                <i class="fa fa-whatsapp"></i><a href="tel:123-456-7890">123-456-7890</a>
+              </div>
+            </div>
+        </div>
+        <div style="position:relative">حقوق النشر محفوظة © 2022 تفاصيل
+            <div id="footIcons">
+                <a target="_blank" href="https://www.facebook.com/profile.php?id=100084879265702"><img src="/static/images/facebook (1).png" alt="facebook"></a>
+                <a target="_blank" href="https://twitter.com/details018"><img src="/static/images/twitter (1).png" alt="twitter"></a>
+                <a target="_blank" href="https://www.instagram.com/tafasil.co/"><img src="/static/images/instagram (1).png" alt="instagram"></a>
+            </div>
+        </div>
+    </footer-->
+    <div class="loading hidden">
+        <img src="/static/images/loadingIcon.gif" alt="جاري التحميل" width="45px">
+    </div>
+    <script src="/static/js/nav.js"></script>
+    {%block js%}
+    {%endblock%}
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+    <script src="/static/js/particles.js"></script>
+    <script></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/store.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
+    <link sr>
+    <title>أنا تقني | المتجر</title>
+</head>
+<body>
+    <nav>
+        <img alt="logo" src="/static/images/{{items.buy}}{{items2.buy}}">
+        <div>الرئيسية</div>
+        <div>الدفع</div>
+    </nav>
+    <header>
+        <h1>{{items2.name}}</h1>
+    </header>
+    <section id="col">
+        <div id="sidebar">
+            <!--div id="search">
+                <input type="text">
+            </div-->
+            <div class="side" id="cart">
+                <h1 class="title">السلة</h1>
+                <!--div>
+                    <i class="fa fa-remove"></i>
+                    <img alt="" src="/static/images/raw-honey-1.png" height="100%">
+                    <div>
+                        <div class="subTitle">عسل السمر</div>
+                        <div class="title"><span>400</span><span style="background-color:#5A3733;color:white;border-radius:100px;padding:2px;margin-left:5px;">x2</span></div>
+                    </div>
+                </div-->
+                <div id="total" class="subTitle">المجموع الكلي: 0 ر.س</div>
+                <div class="but">الدفع</div>
+            </div>
+            <!--div class="side" id="class">
+                <h1 class="title">التصنيفات</h1>
+                <ul>
+                    <li>المنتج الأول</li>
+                    <li>المنتج الثاني</li>
+                    <li>المنتج الثالث</li>
+                    <li>المنتج الرابع</li>
+                    <li>المنتج الخامس</li>
+                    <li>المنتج السادس</li>
+                </ul>
+            </div-->
+            <!--div class="side">
+                <h1 class="title">الفلاتر</h1>
+                <input type="range" min="0" max="200">
+            </div-->
+        </div>
+        <div id="products">
+            {%for x in items%}
+            {% if loop.index>5 %}
+            <div class="p hidden" ind="{{loop.index}}">
+                <img alt="{{x.name}}" src="{{x.img}}">
+                <div class="subTitle">{{x.name}}</div>
+                <div class="title">{{x.price}} ر.س</div>
+                <div id="buttons">
+                    <div class="but" id="addToCart">أضف إلي السلة</div>
+                    <div class="but hidden" id="order">تفاصيل</div>
+                </div>
+            </div>
+            {% else%}
+            <div class="p" ind="{{loop.index}}">
+                <img alt="{{x.name}}" src="{{x.img}}">
+                <div class="subTitle">{{x.name}}</div>
+                <div class="title">{{x.price}} ر.س</div>
+                <div id="buttons">
+                    <div class="but" id="addToCart">أضف إلي السلة</div>
+                    <div class="but hidden" id="order">تفاصيل</div>
+                </div>
+            </div>
+            {% endif %}
+            {% if loop.index == loop.length %}
+            <div style="flex-basis:100%;box-shadow:unset;align-items: flex-end;display: flex;flex-direction: row;justify-content: space-between;">
+                
+                <div id="lastP" class="but hidden2" style="width: fit-content;">رجوع</div>
+                <div id="nextP" class="but" style="width: fit-content;">التالي</div>
+            </div>
+            
+            {% endif %}
+            {%endfor%}
+        </div>
+    </section>
+    <footer>
+        <span>
+            <h1>تابعنا على وسائل التواصل</h1>
+            <div>
+                <i class="fa fa-facebook-f"></i>
+                <i class="fa fa-instagram"></i>
+                <i class="fa fa-snapchat"></i>
+            </div>
+        </span>
+        <img src="/static/images/payment.png" width="50%">
+        <div><span>حقوق النشر محفوظة © 2022</span></div>
+    </footer>
+    <script>
+        let products = {}
+        '{%for x in items%}'
+        products['{{x.name}}'] = [0,'{{x.price}}','{{x.img}}']
+        '{% endfor %}'
+    </script>
+    <script src="/static/js/store.js"></script>
+    <script src="./nav.js"></script>
+    <script src="./edit.js"></script>
+</body>
+</html>
